@@ -11,23 +11,26 @@ public abstract class AbstractAlgorithms implements Runnable, AlgorithmsInterfac
     protected NodeType[][] graph;
     protected int graphWidth;
     protected int graphHeight;
+    protected Point source;
     private double animationDelay;
     private RectangularGrid grid;
 
-    public AbstractAlgorithms(NodeType[][] graph, int graphWidth, int graphHeight, RectangularGrid grid) {
+    public AbstractAlgorithms(NodeType[][] graph, int graphWidth, int graphHeight, RectangularGrid grid,
+                              Point source) {
         this.graph = graph;
         this.graphWidth = graphWidth;
         this.graphHeight = graphHeight;
         this.grid = grid;
+        this.source = source;
         this.animationDelay = 10;
     }
 
     @Override
     public void run() {
-
+        this.findPath();
     }
 
-    abstract void findPath(Point source, Point destination);
+    abstract void findPath();
 
     void fillQueueNode(int row, int col) {
         this.grid.fillRectangularGrid(row, col, NodeColor.QUEUE_COLOR);

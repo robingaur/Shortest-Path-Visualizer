@@ -9,16 +9,17 @@ import java.util.Queue;
 
 public class DijkstraAlgorithm extends AbstractAlgorithms {
 
-    public DijkstraAlgorithm(NodeType[][] graph, int graphWidth, int graphHeight, RectangularGrid grid) {
-        super(graph, graphWidth, graphHeight, grid);
+    public DijkstraAlgorithm(NodeType[][] graph, int graphWidth, int graphHeight, RectangularGrid grid,
+                             Point source) {
+        super(graph, graphWidth, graphHeight, grid, source);
     }
 
     @Override
-    void findPath(Point source, Point destination) {
+    void findPath() {
         Queue<Point> queue = new LinkedList<>();
         Point predecessors[][] = new Point[super.graphWidth][super.graphHeight];
-        queue.add(source);
-        predecessors[(int) source.getX()][(int) source.getY()] = null;
+        queue.add(super.source);
+        predecessors[(int) super.source.getX()][(int) super.source.getY()] = null;
 
         Point currentPoint;
         while (!queue.isEmpty()) {
@@ -26,7 +27,7 @@ public class DijkstraAlgorithm extends AbstractAlgorithms {
             int x = (int) currentPoint.getX();
             int y = (int) currentPoint.getY();
 
-            if (currentPoint != source) {
+            if (currentPoint != super.source) {
                 super.fillVisitedNode(x, y);
             }
 

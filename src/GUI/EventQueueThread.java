@@ -46,6 +46,11 @@ class EventQueueThread implements Runnable {
 
         {
             // MenuMenu
+            JMenuItem findPath = new JMenuItem("Find Path");
+            findPath.setActionCommand(ConstKeys.FIND_PATH_MENU_ITEM);
+            findPath.addActionListener(this.menuItemListener);
+            menuMenu.add(findPath);
+
             JMenuItem start_pause = new JMenuItem("Start/Pause");
             start_pause.setActionCommand(ConstKeys.START_PAUSE_MENU_ITEM);
             start_pause.addActionListener(this.menuItemListener);
