@@ -1,5 +1,6 @@
 package GUI;
 
+import UtilityClasses.NodeColor;
 import UtilityClasses.NodeType;
 import UtilityClasses.RectangularGrid;
 
@@ -15,6 +16,7 @@ public class MainCanvas extends JPanel implements MainCanvasInterface {
     private NodeType graph[][];
     private Point sourceNode;
     private Point destinationNode;
+    private NodeType currentNodeStage;
 
     public MainCanvas() {
         try {
@@ -24,6 +26,7 @@ public class MainCanvas extends JPanel implements MainCanvasInterface {
         }
 
         this.setFocusable(true);
+        this.currentNodeStage = NodeType.MARKED;
 
         this.GRAPH_WIDTH = 80;
         this.GRAPH_HEIGHT = 40;
@@ -51,12 +54,14 @@ public class MainCanvas extends JPanel implements MainCanvasInterface {
         }
 
         //Setting Default Source Node
-        this.graph[0][0] = NodeType.SOURCE;
-        grid.fillRectangularGrid(0, 0, Color.RED);
+        this.sourceNode = new Point(0, 0);
+        this.setNodeType(this.sourceNode, NodeType.SOURCE);
+        grid.fillRectangularGrid(0, 0, NodeColor.SOURCE_COLOR);
 
         // Setting Default Destination Node
-        this.graph[this.GRAPH_WIDTH - 1][this.GRAPH_HEIGHT - 1] = NodeType.DESTINATION;
-        grid.fillRectangularGrid(this.GRAPH_WIDTH - 1, this.GRAPH_HEIGHT - 1, Color.BLUE);
+        this.destinationNode = new Point(this.GRAPH_WIDTH - 1, this.GRAPH_HEIGHT - 1);
+        this.setNodeType(this.destinationNode, NodeType.DESTINATION);
+        grid.fillRectangularGrid(this.GRAPH_WIDTH - 1, this.GRAPH_HEIGHT - 1, NodeColor.DESTINATION_COLOR);
 
         this.addMouseListener(new GridMouseListener(this));
     }
@@ -91,5 +96,28 @@ public class MainCanvas extends JPanel implements MainCanvasInterface {
         return this.destinationNode;
     }
 
+    @Override
+    public void setCurrentNodeStage(NodeType currentNodeStage) {
+        this.currentNodeStage = currentNodeStage;
+    }
 
+    @Override
+    public NodeType getCurrentNodeStage() {
+        return this.currentNodeStage;
+    }
+
+    @Override
+    public void setNodeType(Point point, NodeType type) {
+        this.graph[(int) point.getX()][(int) point.getY()] = type;
+    }
+
+    @Override
+    public NodeType getNodeType(Point point) {
+        return this.graph[(int) point.getX()][(int) point.getY()];
+    }
+
+    @Override
+    public NodeType[][] getGraph() {
+        return this.graph;
+    }
 }

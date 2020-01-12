@@ -1,5 +1,7 @@
 package GUI;
 
+import UtilityClasses.NodeType;
+
 import java.awt.*;
 
 public interface MainCanvasInterface {
@@ -15,4 +17,14 @@ public interface MainCanvasInterface {
     void setDestinationNode(Point destinationNode);
 
     Point getDestinationNode();
+
+    void setCurrentNodeStage(NodeType currentNodeStage);
+
+    NodeType getCurrentNodeStage();
+
+    void setNodeType(Point point, NodeType type);
+
+    NodeType getNodeType(Point point);
+
+    NodeType[][] getGraph();
 }

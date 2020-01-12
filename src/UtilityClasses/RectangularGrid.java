@@ -39,6 +39,7 @@ public class RectangularGrid implements RectangularGridInterface {
 
         this.g.setColor(color);
         this.g.fillRect(x, y, this.gridWidth, this.gridHeight);
+        this.g.setColor(Color.BLACK);
         this.g.drawRect(x, y, this.gridWidth, this.gridHeight);
     }
 
