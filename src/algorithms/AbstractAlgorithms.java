@@ -6,7 +6,7 @@ import UtilityClasses.RectangularGridInterface;
 
 import java.awt.*;
 
-public abstract class AbstractAlgorithms implements Runnable, AlgorithmsInterface {
+public abstract class AbstractAlgorithms implements  AlgorithmsInterface {
 
     protected NodeType[][] graph;
     protected int graphWidth;

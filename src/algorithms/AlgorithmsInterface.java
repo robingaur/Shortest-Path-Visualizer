@@ -1,6 +1,6 @@
 package algorithms;
 
-public interface AlgorithmsInterface {
+public interface AlgorithmsInterface extends Runnable {
 
     /**
      * This function will set the animationDelay to the given delay.

@@ -2,6 +2,7 @@ package GUI;
 
 import UtilityClasses.ConstKeys;
 import UtilityClasses.RectangularGrid;
+import algorithms.AlgorithmsInterface;
 import algorithms.DijkstraAlgorithm;
 
 import javax.swing.*;
@@ -16,6 +17,8 @@ class MenuItemListener implements ActionListener, ChangeListener, KeyListener {
 
     private MainCanvas canvas;
     private RectangularGrid grid;
+    private AlgorithmsInterface algorithms;
+    private int animationDelay;
 
     public MenuItemListener(MainCanvas mainCanvas) {
         this.canvas = mainCanvas;
@@ -33,6 +36,9 @@ class MenuItemListener implements ActionListener, ChangeListener, KeyListener {
             case ConstKeys.FIND_PATH_MENU_ITEM:
                 this.findPathMenuItem();
                 break;
+            case ConstKeys.START_PAUSE_MENU_ITEM:
+                this.startPauseMenuItem();
+                break;
         }
     }
 
@@ -42,34 +48,54 @@ class MenuItemListener implements ActionListener, ChangeListener, KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-
+        int keyCode = e.getKeyCode();
+        switch (keyCode) {
+            case KeyEvent.VK_S:
+                this.findPathMenuItem();
+                break;
+            case KeyEvent.VK_SPACE:
+                this.startPauseMenuItem();
+                break;
+        }
     }
 
 
     private void findPathMenuItem() {
         for (Thread thread : Thread.getAllStackTraces().keySet()) {
             if (thread.getName().equals(ConstKeys.SORTING_THREAD) && thread.isAlive()) {
-                JOptionPane.showMessageDialog(this.canvas.getFrame(), "Sorting is not Completed.", "Error!",
+                JOptionPane.showMessageDialog(this.canvas.getFrame(), "Already finding Path.", "Error!",
                         JOptionPane.ERROR_MESSAGE);
                 return;
             }
         }
 
         this.initializeRectangularGrid();
-        DijkstraAlgorithm algorithm = new DijkstraAlgorithm(this.canvas.getGraph(), this.grid, this.canvas.geSourceNode());
-        Thread thread = new Thread(algorithm, ConstKeys.SORTING_THREAD);
+        this.algorithms = new DijkstraAlgorithm(this.canvas.getGraph(), this.grid, this.canvas.geSourceNode());
+        this.animationDelay = this.algorithms.getAnimationDelay();
+        Thread thread = new Thread(this.algorithms, ConstKeys.SORTING_THREAD);
         thread.start();
     }
 
+    private void startPauseMenuItem() {
+        for (Thread thread : Thread.getAllStackTraces().keySet()) {
+            if (thread.getName().equals(ConstKeys.SORTING_THREAD) && thread.isAlive()) {
+                if (this.algorithms.getAnimationDelay() == Integer.MAX_VALUE) {
+                    this.algorithms.setAnimationDelay(this.animationDelay);
+                    thread.interrupt();
+                } else {
+                    this.animationDelay = this.algorithms.getAnimationDelay();
+                    this.algorithms.setAnimationDelay(Integer.MAX_VALUE);
+                }
+            }
+        }
 
+    }
 }

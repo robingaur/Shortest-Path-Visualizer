@@ -28,6 +28,7 @@ class EventQueueThread implements Runnable {
             this.frame.setBackground(Color.WHITE);
             this.frame.add(this.mainCanvas);
             this.frame.setJMenuBar(this.setMenuBar());
+            this.mainCanvas.addKeyListener(this.menuItemListener);
 
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
             this.frame.setSize(screenSize);
