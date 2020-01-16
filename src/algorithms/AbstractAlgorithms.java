@@ -1,9 +1,11 @@
 package algorithms;
 
+import GUI.SingletonCanvas;
 import UtilityClasses.NodeColor;
 import UtilityClasses.NodeType;
 import UtilityClasses.RectangularGridInterface;
 
+import javax.swing.*;
 import java.awt.*;
 
 public abstract class AbstractAlgorithms implements AlgorithmsInterface {
@@ -29,10 +31,13 @@ public abstract class AbstractAlgorithms implements AlgorithmsInterface {
 
     @Override
     public void run() {
-        this.findPath();
+        if (!this.findPath()) {
+            JOptionPane.showMessageDialog(SingletonCanvas.getFrame(), "No Path Found.",
+                    "Message!", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
-    abstract void findPath();
+    abstract boolean findPath();
 
     protected void fillQueueNode(int row, int col) {
         this.grid.fillRectangularGrid(row, col, NodeColor.IN_QUEUE_COLOR);

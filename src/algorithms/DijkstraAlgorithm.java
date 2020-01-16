@@ -15,7 +15,7 @@ public class DijkstraAlgorithm extends AbstractAlgorithms {
     }
 
     @Override
-    void findPath() {
+    boolean findPath() {
         Queue<Point> queue = new LinkedList<>();
         Point predecessors[][] = new Point[super.graphWidth][super.graphHeight];
         queue.add(super.source);
@@ -86,13 +86,14 @@ public class DijkstraAlgorithm extends AbstractAlgorithms {
         Point node = predecessors[(int) super.destination.getX()][(int) super.destination.getY()];
         Point tempNode;
         if (node == null) {
-
+            return false;
         } else {
             while (super.graph[(int) node.getX()][(int) node.getY()] != NodeType.SOURCE) {
                 super.fillPathNode((int) node.getX(), (int) node.getY());
                 tempNode = predecessors[(int) node.getX()][(int) node.getY()];
                 node = tempNode;
             }
+            return true;
         }
     }
 }

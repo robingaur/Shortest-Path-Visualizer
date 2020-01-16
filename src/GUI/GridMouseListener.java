@@ -1,5 +1,6 @@
 package GUI;
 
+import UtilityClasses.ConstKeys;
 import UtilityClasses.NodeColor;
 import UtilityClasses.NodeType;
 import UtilityClasses.RectangularGrid;
@@ -26,6 +27,12 @@ class GridMouseListener implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
+        for (Thread thread : Thread.getAllStackTraces().keySet()) {
+            if (thread.getName().equals(ConstKeys.SORTING_THREAD) && thread.isAlive()) {
+                return;
+            }
+        }
+
         Point point = this.grid.getRectangularGridIndexes(e.getX(), e.getY());
         if (point != null) {
             switch (this.canvas.getCurrentNodeStage()) {

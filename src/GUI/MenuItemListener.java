@@ -58,6 +58,14 @@ class MenuItemListener implements ActionListener, ChangeListener, KeyListener {
 
     @Override
     public void stateChanged(ChangeEvent e) {
+        JSlider slider = (JSlider) e.getSource();
+        if (slider.getValueIsAdjusting()) {
+            int sliderValue = slider.getValue();
+            this.animationDelay = 100 - sliderValue;
+            if (this.algorithms != null && this.algorithms.getAnimationDelay() != Double.MAX_VALUE) {
+                this.algorithms.setAnimationDelay(this.animationDelay);
+            }
+        }
     }
 
     @Override

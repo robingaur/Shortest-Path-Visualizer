@@ -1,8 +1,8 @@
-import GUI.MainCanvas;
+import GUI.SingletonCanvas;
 
 public class Main {
 
     public static void main(String[] args) {
-        new MainCanvas();
+        SingletonCanvas.getCanvas();
     }
 }
