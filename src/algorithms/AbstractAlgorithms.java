@@ -15,11 +15,11 @@ public abstract class AbstractAlgorithms implements Runnable, AlgorithmsInterfac
     private double animationDelay;
     private RectangularGrid grid;
 
-    public AbstractAlgorithms(NodeType[][] graph, int graphWidth, int graphHeight, RectangularGrid grid,
+    public AbstractAlgorithms(NodeType[][] graph, RectangularGrid grid,
                               Point source) {
         this.graph = graph;
-        this.graphWidth = graphWidth;
-        this.graphHeight = graphHeight;
+        this.graphWidth = graph.length;
+        this.graphHeight = graph[0].length;
         this.grid = grid;
         this.source = source;
         this.animationDelay = 10;

@@ -67,6 +67,11 @@ public class MainCanvas extends JPanel implements MainCanvasInterface {
     }
 
     @Override
+    public JFrame getFrame() {
+        return this.frame;
+    }
+
+    @Override
     public int getGraphWidth() {
         return this.GRAPH_WIDTH;
     }

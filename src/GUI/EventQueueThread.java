@@ -12,9 +12,9 @@ class EventQueueThread implements Runnable {
     private JFrame frame;
     private MenuItemListener menuItemListener;
 
-    public EventQueueThread(MainCanvas mainCanvas, JFrame frame) {
+    public EventQueueThread(MainCanvas mainCanvas) {
         this.mainCanvas = mainCanvas;
-        this.frame = frame;
+        this.frame = mainCanvas.getFrame();
         this.menuItemListener = new MenuItemListener(mainCanvas);
     }
 
@@ -60,6 +60,11 @@ class EventQueueThread implements Runnable {
             finishExecution.setActionCommand(ConstKeys.FINISH_EXECUTION_MENU_ITEM);
             finishExecution.addActionListener(this.menuItemListener);
             menuMenu.add(finishExecution);
+
+            JMenuItem resetGraph = new JMenuItem("Reset");
+            resetGraph.setActionCommand(ConstKeys.RESET_GRAPH_MENU_ITEM);
+            resetGraph.addActionListener(this.menuItemListener);
+            menuMenu.add(resetGraph);
 
             menuBar.add(menuMenu);
         }

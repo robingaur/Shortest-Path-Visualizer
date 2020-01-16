@@ -2,9 +2,12 @@ package GUI;
 
 import UtilityClasses.NodeType;
 
+import javax.swing.*;
 import java.awt.*;
 
 public interface MainCanvasInterface {
+
+    JFrame getFrame();
 
     int getGraphWidth();
 
