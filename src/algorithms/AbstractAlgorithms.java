@@ -2,7 +2,7 @@ package algorithms;
 
 import UtilityClasses.NodeColor;
 import UtilityClasses.NodeType;
-import UtilityClasses.RectangularGrid;
+import UtilityClasses.RectangularGridInterface;
 
 import java.awt.*;
 
@@ -12,17 +12,17 @@ public abstract class AbstractAlgorithms implements Runnable, AlgorithmsInterfac
     protected int graphWidth;
     protected int graphHeight;
     protected Point source;
-    private double animationDelay;
-    private RectangularGrid grid;
+    private int animationDelay;
+    private RectangularGridInterface grid;
 
-    public AbstractAlgorithms(NodeType[][] graph, RectangularGrid grid,
+    public AbstractAlgorithms(NodeType[][] graph, RectangularGridInterface grid,
                               Point source) {
         this.graph = graph;
         this.graphWidth = graph.length;
         this.graphHeight = graph[0].length;
         this.grid = grid;
         this.source = source;
-        this.animationDelay = 10;
+        this.animationDelay = 50;
     }
 
     @Override
@@ -32,21 +32,29 @@ public abstract class AbstractAlgorithms implements Runnable, AlgorithmsInterfac
 
     abstract void findPath();
 
-    void fillQueueNode(int row, int col) {
+    protected void fillQueueNode(int row, int col) {
         this.grid.fillRectangularGrid(row, col, NodeColor.QUEUE_COLOR);
+        try {
+            Thread.sleep(this.getAnimationDelay());
+        } catch (InterruptedException ex) {
+        }
     }
 
-    void fillVisitedNode(int row, int col) {
+    protected void fillVisitedNode(int row, int col) {
         this.grid.fillRectangularGrid(row, col, NodeColor.VISITED_COLOR);
+        try {
+            Thread.sleep(this.getAnimationDelay());
+        } catch (InterruptedException ex) {
+        }
     }
 
     @Override
-    public void setAnimationDelay(double delay) {
+    public void setAnimationDelay(int delay) {
         this.animationDelay = delay;
     }
 
     @Override
-    public double getAnimationDelay() {
+    public int getAnimationDelay() {
         return this.animationDelay;
     }
 }

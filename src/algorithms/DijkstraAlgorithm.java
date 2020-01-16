@@ -9,9 +9,9 @@ import java.util.Queue;
 
 public class DijkstraAlgorithm extends AbstractAlgorithms {
 
-    public DijkstraAlgorithm(NodeType[][] graph, int graphWidth, int graphHeight, RectangularGrid grid,
+    public DijkstraAlgorithm(NodeType[][] graph, RectangularGrid grid,
                              Point source) {
-        super(graph, graphWidth, graphHeight, grid, source);
+        super(graph, grid, source);
     }
 
     @Override
@@ -19,6 +19,8 @@ public class DijkstraAlgorithm extends AbstractAlgorithms {
         Queue<Point> queue = new LinkedList<>();
         Point predecessors[][] = new Point[super.graphWidth][super.graphHeight];
         queue.add(super.source);
+
+        // no predecessor for source node.
         predecessors[(int) super.source.getX()][(int) super.source.getY()] = null;
 
         Point currentPoint;
@@ -43,7 +45,7 @@ public class DijkstraAlgorithm extends AbstractAlgorithms {
                 }
             }
 
-            if (x <= super.graphWidth) {
+            if (x < super.graphWidth - 1) {
                 if (super.graph[x + 1][y] == NodeType.NOT_VISITED) {
                     predecessors[x + 1][y] = currentPoint;
                     queue.add(new Point(x + 1, y));
@@ -67,7 +69,7 @@ public class DijkstraAlgorithm extends AbstractAlgorithms {
                 }
             }
 
-            if (y <= super.graphHeight) {
+            if (y < super.graphHeight - 1) {
                 if (super.graph[x][y + 1] == NodeType.NOT_VISITED) {
                     predecessors[x][y + 1] = currentPoint;
                     queue.add(new Point(x, y + 1));

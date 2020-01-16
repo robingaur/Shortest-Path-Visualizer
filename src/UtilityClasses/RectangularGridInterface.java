@@ -26,7 +26,7 @@ public interface RectangularGridInterface {
      *
      * @param x
      * @param y
-     * @return
+     * @return Point object
      */
     Point getRectangularGridIndexes(int x, int y);
 }

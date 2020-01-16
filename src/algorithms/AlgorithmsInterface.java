@@ -2,7 +2,17 @@ package algorithms;
 
 public interface AlgorithmsInterface {
 
-    void setAnimationDelay(double delay);
+    /**
+     * This function will set the animationDelay to the given delay.
+     *
+     * @param delay
+     */
+    void setAnimationDelay(int delay);
 
-    double getAnimationDelay();
+    /**
+     * This function will return the animationDelay.
+     *
+     * @return int between 0 to 100.
+     */
+    int getAnimationDelay();
 }
