@@ -1,6 +1,8 @@
 package GUI;
 
 import UtilityClasses.ConstKeys;
+import UtilityClasses.NodeColor;
+import UtilityClasses.NodeType;
 import UtilityClasses.RectangularGrid;
 import algorithms.AlgorithmsInterface;
 import algorithms.DijkstraAlgorithm;
@@ -42,6 +44,9 @@ class MenuItemListener implements ActionListener, ChangeListener, KeyListener {
             case ConstKeys.RESET_GRAPH_MENU_ITEM:
                 this.resetGraphMenuItem();
                 break;
+            case ConstKeys.EDIT_GRAPH_MENU_ITEM:
+                this.editGraphMenuItem();
+                break;
         }
     }
 
@@ -73,9 +78,11 @@ class MenuItemListener implements ActionListener, ChangeListener, KeyListener {
             case KeyEvent.VK_R:
                 this.resetGraphMenuItem();
                 break;
+            case KeyEvent.VK_E:
+                this.editGraphMenuItem();
+                break;
         }
     }
-
 
     private void findPathMenuItem() {
         for (Thread thread : Thread.getAllStackTraces().keySet()) {
@@ -130,6 +137,28 @@ class MenuItemListener implements ActionListener, ChangeListener, KeyListener {
         }
 
         this.canvas.resetCanvas();
+        this.canvas.repaint();
+    }
+
+    private void editGraphMenuItem() {
+        for (Thread thread : Thread.getAllStackTraces().keySet()) {
+            if (thread.getName().equals(ConstKeys.SORTING_THREAD) && thread.isAlive()) {
+                JOptionPane.showMessageDialog(this.canvas.getFrame(), "Current Execution not completed.",
+                        "Error!", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
+
+        NodeType[][] graph = this.canvas.getGraph();
+        for (int i = 0; i < graph.length; i++) {
+            for (int j = 0; j < graph[0].length; j++) {
+                if (graph[i][j] == NodeType.VISITED || graph[i][j] == NodeType.IN_QUEUE) {
+                    graph[i][j] = NodeType.NOT_VISITED;
+                    this.grid.fillRectangularGrid(i, j, NodeColor.NOT_VISITED_COLOR);
+                }
+            }
+        }
+
         this.canvas.repaint();
     }
 }

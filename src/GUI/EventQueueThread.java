@@ -67,6 +67,11 @@ class EventQueueThread implements Runnable {
             resetGraph.addActionListener(this.menuItemListener);
             menuMenu.add(resetGraph);
 
+            JMenuItem editGraph = new JMenuItem("Edit Graph");
+            editGraph.setActionCommand(ConstKeys.EDIT_GRAPH_MENU_ITEM);
+            editGraph.addActionListener(this.menuItemListener);
+            menuMenu.add(editGraph);
+
             menuBar.add(menuMenu);
         }
 
