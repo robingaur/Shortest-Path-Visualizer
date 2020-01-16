@@ -17,6 +17,7 @@ public class MainCanvas extends JPanel implements MainCanvasInterface {
     private Point sourceNode;
     private Point destinationNode;
     private NodeType currentNodeStage;
+    private boolean isOneTimeDeclared = false;
 
     public MainCanvas() {
         try {
@@ -75,14 +76,18 @@ public class MainCanvas extends JPanel implements MainCanvasInterface {
                     grid.fillRectangularGrid(i, j, NodeColor.VISITED_COLOR);
                 } else if (this.graph[i][j] == NodeType.IN_QUEUE) {
                     grid.fillRectangularGrid(i, j, NodeColor.IN_QUEUE_COLOR);
+                } else if (this.graph[i][j] == NodeType.SOURCE) {
+                    grid.fillRectangularGrid(i, j, NodeColor.SOURCE_COLOR);
+                } else if (this.graph[i][j] == NodeType.DESTINATION) {
+                    grid.fillRectangularGrid(i, j, NodeColor.DESTINATION_COLOR);
                 }
             }
         }
 
-        grid.fillRectangularGrid(0, 0, NodeColor.SOURCE_COLOR);
-        grid.fillRectangularGrid(this.GRAPH_WIDTH - 1, this.GRAPH_HEIGHT - 1, NodeColor.DESTINATION_COLOR);
-
-        this.addMouseListener(new GridMouseListener(this));
+        if (!this.isOneTimeDeclared) {
+            this.addMouseListener(new GridMouseListener(this));
+            this.isOneTimeDeclared = true;
+        }
     }
 
     @Override

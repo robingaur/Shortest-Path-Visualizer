@@ -94,6 +94,5 @@ public class DijkstraAlgorithm extends AbstractAlgorithms {
                 node = tempNode;
             }
         }
-
     }
 }

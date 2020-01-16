@@ -25,10 +25,6 @@ class GridMouseListener implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
         Point point = this.grid.getRectangularGridIndexes(e.getX(), e.getY());
         if (point != null) {
             switch (this.mainCanvas.getCurrentNodeStage()) {
@@ -69,6 +65,10 @@ class GridMouseListener implements MouseListener {
                     break;
             }
         }
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
     }
 
     @Override
