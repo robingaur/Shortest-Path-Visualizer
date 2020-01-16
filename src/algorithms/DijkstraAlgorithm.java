@@ -10,8 +10,8 @@ import java.util.Queue;
 public class DijkstraAlgorithm extends AbstractAlgorithms {
 
     public DijkstraAlgorithm(NodeType[][] graph, RectangularGrid grid,
-                             Point source) {
-        super(graph, grid, source);
+                             Point source, Point destination) {
+        super(graph, grid, source, destination);
     }
 
     @Override
@@ -82,5 +82,18 @@ public class DijkstraAlgorithm extends AbstractAlgorithms {
                 }
             }
         }
+
+        Point node = predecessors[(int) super.destination.getX()][(int) super.destination.getY()];
+        Point tempNode;
+        if (node == null) {
+
+        } else {
+            while (super.graph[(int) node.getX()][(int) node.getY()] != NodeType.SOURCE) {
+                super.fillPathNode((int) node.getX(), (int) node.getY());
+                tempNode = predecessors[(int) node.getX()][(int) node.getY()];
+                node = tempNode;
+            }
+        }
+
     }
 }

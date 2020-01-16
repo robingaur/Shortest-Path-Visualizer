@@ -33,16 +33,28 @@ class GridMouseListener implements MouseListener {
         if (point != null) {
             switch (this.mainCanvas.getCurrentNodeStage()) {
                 case SOURCE:
-                    this.mainCanvas.setSourceNode(point);
-                    this.mainCanvas.setNodeType(point, NodeType.SOURCE);
-                    this.grid.fillRectangularGrid((int) point.getX(), (int) point.getY(), NodeColor.SOURCE_COLOR);
+                    if (this.mainCanvas.getNodeType(point) == NodeType.NOT_VISITED) {
+                        Point oldPoint = this.mainCanvas.getSourceNode();
+                        // Update Source Node
+                        this.mainCanvas.setSourceNode(point);
+
+                        // Delete Old Source Node
+                        this.mainCanvas.setNodeType(oldPoint, NodeType.NOT_VISITED);
+                        this.grid.fillRectangularGrid((int) oldPoint.getX(), (int) oldPoint.getY(), NodeColor.NOT_VISITED_COLOR);
+
+                        // Update New Source Node
+                        this.mainCanvas.setNodeType(point, NodeType.SOURCE);
+                        this.grid.fillRectangularGrid((int) point.getX(), (int) point.getY(), NodeColor.SOURCE_COLOR);
+                    }
                     this.mainCanvas.setCurrentNodeStage(NodeType.MARKED);
                     break;
 
                 case DESTINATION:
-                    this.mainCanvas.setDestinationNode(point);
-                    this.mainCanvas.setNodeType(point, NodeType.DESTINATION);
-                    this.grid.fillRectangularGrid((int) point.getX(), (int) point.getY(), NodeColor.DESTINATION_COLOR);
+                    if (this.mainCanvas.getNodeType(point) == NodeType.NOT_VISITED) {
+                        this.mainCanvas.setDestinationNode(point);
+                        this.mainCanvas.setNodeType(point, NodeType.DESTINATION);
+                        this.grid.fillRectangularGrid((int) point.getX(), (int) point.getY(), NodeColor.DESTINATION_COLOR);
+                    }
                     this.mainCanvas.setCurrentNodeStage(NodeType.MARKED);
                     break;
 

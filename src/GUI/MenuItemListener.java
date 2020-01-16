@@ -47,6 +47,9 @@ class MenuItemListener implements ActionListener, ChangeListener, KeyListener {
             case ConstKeys.EDIT_GRAPH_MENU_ITEM:
                 this.editGraphMenuItem();
                 break;
+            case ConstKeys.CHANGE_SOURCE_MENU_ITEM:
+                this.changeSourceMenuItem();
+                break;
         }
     }
 
@@ -94,7 +97,8 @@ class MenuItemListener implements ActionListener, ChangeListener, KeyListener {
         }
 
         this.initializeRectangularGrid();
-        this.algorithms = new DijkstraAlgorithm(this.canvas.getGraph(), this.grid, this.canvas.geSourceNode());
+        this.algorithms = new DijkstraAlgorithm(this.canvas.getGraph(), this.grid,
+                this.canvas.getSourceNode(), this.canvas.getDestinationNode());
         this.animationDelay = this.algorithms.getAnimationDelay();
         Thread thread = new Thread(this.algorithms, ConstKeys.SORTING_THREAD);
         thread.start();
@@ -160,5 +164,17 @@ class MenuItemListener implements ActionListener, ChangeListener, KeyListener {
         }
 
         this.canvas.repaint();
+    }
+
+    private void changeSourceMenuItem() {
+        for (Thread thread : Thread.getAllStackTraces().keySet()) {
+            if (thread.getName().equals(ConstKeys.SORTING_THREAD) && thread.isAlive()) {
+                JOptionPane.showMessageDialog(this.canvas.getFrame(), "Current Execution not completed.",
+                        "Error!", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
+
+        this.canvas.setCurrentNodeStage(NodeType.SOURCE);
     }
 }

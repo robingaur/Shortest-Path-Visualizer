@@ -62,7 +62,7 @@ public interface MainCanvasInterface {
     /**
      * @return point of source/starting node.
      */
-    Point geSourceNode();
+    Point getSourceNode();
 
     /**
      * This method will set the point of destination node of the Graph.

@@ -106,7 +106,7 @@ public class MainCanvas extends JPanel implements MainCanvasInterface {
     }
 
     @Override
-    public Point geSourceNode() {
+    public Point getSourceNode() {
         return this.sourceNode;
     }
 

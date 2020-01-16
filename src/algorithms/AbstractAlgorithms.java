@@ -6,22 +6,24 @@ import UtilityClasses.RectangularGridInterface;
 
 import java.awt.*;
 
-public abstract class AbstractAlgorithms implements  AlgorithmsInterface {
+public abstract class AbstractAlgorithms implements AlgorithmsInterface {
 
     protected NodeType[][] graph;
     protected int graphWidth;
     protected int graphHeight;
     protected Point source;
+    protected Point destination;
     private int animationDelay;
     private RectangularGridInterface grid;
 
     public AbstractAlgorithms(NodeType[][] graph, RectangularGridInterface grid,
-                              Point source) {
+                              Point source, Point destination) {
         this.graph = graph;
         this.graphWidth = graph.length;
         this.graphHeight = graph[0].length;
         this.grid = grid;
         this.source = source;
+        this.destination = destination;
         this.animationDelay = 10;
     }
 
@@ -42,6 +44,14 @@ public abstract class AbstractAlgorithms implements  AlgorithmsInterface {
 
     protected void fillVisitedNode(int row, int col) {
         this.grid.fillRectangularGrid(row, col, NodeColor.VISITED_COLOR);
+        try {
+            Thread.sleep(this.getAnimationDelay());
+        } catch (InterruptedException ex) {
+        }
+    }
+
+    protected void fillPathNode(int row, int col) {
+        this.grid.fillRectangularGrid(row, col, NodeColor.PATH_COLOR);
         try {
             Thread.sleep(this.getAnimationDelay());
         } catch (InterruptedException ex) {
