@@ -50,6 +50,9 @@ class MenuItemListener implements ActionListener, ChangeListener, KeyListener {
             case ConstKeys.CHANGE_SOURCE_MENU_ITEM:
                 this.changeSourceMenuItem();
                 break;
+            case ConstKeys.CHANGE_DESTINATION_MENU_ITEM:
+                this.changeDestinationMenuItem();
+                break;
         }
     }
 
@@ -176,5 +179,17 @@ class MenuItemListener implements ActionListener, ChangeListener, KeyListener {
         }
 
         this.canvas.setCurrentNodeStage(NodeType.SOURCE);
+    }
+
+    private void changeDestinationMenuItem() {
+        for (Thread thread : Thread.getAllStackTraces().keySet()) {
+            if (thread.getName().equals(ConstKeys.SORTING_THREAD) && thread.isAlive()) {
+                JOptionPane.showMessageDialog(this.canvas.getFrame(), "Current Execution not completed.",
+                        "Error!", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
+
+        this.canvas.setCurrentNodeStage(NodeType.DESTINATION);
     }
 }
