@@ -64,6 +64,9 @@ class MenuItemListener implements ActionListener, ChangeListener, KeyListener {
             case KeyEvent.VK_SPACE:
                 this.startPauseMenuItem();
                 break;
+            case KeyEvent.VK_F:
+                this.finishExecutionMenuItem();
+                break;
         }
     }
 
@@ -97,5 +100,17 @@ class MenuItemListener implements ActionListener, ChangeListener, KeyListener {
             }
         }
 
+    }
+
+    private void finishExecutionMenuItem() {
+        for (Thread thread : Thread.getAllStackTraces().keySet()) {
+            if (thread.getName().equals(ConstKeys.SORTING_THREAD) && thread.isAlive()) {
+                this.algorithms.setAnimationDelay(0);
+                return;
+            }
+        }
+
+        JOptionPane.showMessageDialog(this.canvas.getFrame(), "No Algorithm is running.", "Error!",
+                JOptionPane.ERROR_MESSAGE);
     }
 }
