@@ -15,12 +15,12 @@ import java.awt.event.KeyListener;
 
 class MenuItemListener implements ActionListener, ChangeListener, KeyListener {
 
-    private MainCanvas canvas;
+    private MainCanvasInterface canvas;
     private RectangularGrid grid;
     private AlgorithmsInterface algorithms;
     private int animationDelay;
 
-    public MenuItemListener(MainCanvas mainCanvas) {
+    public MenuItemListener(MainCanvasInterface mainCanvas) {
         this.canvas = mainCanvas;
     }
 
@@ -38,6 +38,9 @@ class MenuItemListener implements ActionListener, ChangeListener, KeyListener {
                 break;
             case ConstKeys.START_PAUSE_MENU_ITEM:
                 this.startPauseMenuItem();
+                break;
+            case ConstKeys.RESET_GRAPH_MENU_ITEM:
+                this.resetGraphMenuItem();
                 break;
         }
     }
@@ -66,6 +69,9 @@ class MenuItemListener implements ActionListener, ChangeListener, KeyListener {
                 break;
             case KeyEvent.VK_F:
                 this.finishExecutionMenuItem();
+                break;
+            case KeyEvent.VK_R:
+                this.resetGraphMenuItem();
                 break;
         }
     }
@@ -112,5 +118,18 @@ class MenuItemListener implements ActionListener, ChangeListener, KeyListener {
 
         JOptionPane.showMessageDialog(this.canvas.getFrame(), "No Algorithm is running.", "Error!",
                 JOptionPane.ERROR_MESSAGE);
+    }
+
+    private void resetGraphMenuItem() {
+        for (Thread thread : Thread.getAllStackTraces().keySet()) {
+            if (thread.getName().equals(ConstKeys.SORTING_THREAD) && thread.isAlive()) {
+                JOptionPane.showMessageDialog(this.canvas.getFrame(), "Current Execution not completed.",
+                        "Error!", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
+
+        this.canvas.resetCanvas();
+        this.canvas.repaint();
     }
 }

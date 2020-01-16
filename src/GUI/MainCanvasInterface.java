@@ -18,6 +18,26 @@ public interface MainCanvasInterface {
     Graphics getGraphics();
 
     /**
+     * @return the Width of panel
+     */
+    int getWidth();
+
+    /**
+     * @return the Height of JPanel
+     */
+    int getHeight();
+
+    /**
+     * This method will repaint the JFrame
+     */
+    void repaint();
+
+    /**
+     * This method will reset the graph.
+     */
+    void resetCanvas();
+
+    /**
      * @return graph
      */
     NodeType[][] getGraph();

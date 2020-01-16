@@ -31,8 +31,13 @@ public class MainCanvas extends JPanel implements MainCanvasInterface {
 
         this.GRAPH_WIDTH = 80; // Default Graph Width
         this.GRAPH_HEIGHT = 40; // Default Graph Height
-
         this.graph = new NodeType[this.GRAPH_WIDTH][this.GRAPH_HEIGHT];
+
+        this.resetCanvas();
+    }
+
+    public void resetCanvas() {
+
         for (int i = 0; i < this.GRAPH_WIDTH; i++) {
             for (int j = 0; j < this.GRAPH_HEIGHT; j++) {
                 this.graph[i][j] = NodeType.NOT_VISITED; // Default Node Type
