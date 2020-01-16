@@ -20,17 +20,32 @@ public class MainCanvas extends JPanel implements MainCanvasInterface {
 
     public MainCanvas() {
         try {
-            EventQueue.invokeAndWait(new EventQueueThread(this, this.frame));
+            EventQueue.invokeAndWait(new EventQueueThread(this));
         } catch (InterruptedException | InvocationTargetException ex) {
             ex.printStackTrace();
         }
 
+        // Set the Focus on frame, if not keyListener will not work.
         this.setFocusable(true);
-        this.currentNodeStage = NodeType.MARKED;
+        this.currentNodeStage = NodeType.MARKED; // Default Node Stage
 
-        this.GRAPH_WIDTH = 80;
-        this.GRAPH_HEIGHT = 40;
+        this.GRAPH_WIDTH = 80; // Default Graph Width
+        this.GRAPH_HEIGHT = 40; // Default Graph Height
+
         this.graph = new NodeType[this.GRAPH_WIDTH][this.GRAPH_HEIGHT];
+        for (int i = 0; i < this.GRAPH_WIDTH; i++) {
+            for (int j = 0; j < this.GRAPH_HEIGHT; j++) {
+                this.graph[i][j] = NodeType.NOT_VISITED; // Default Node Type
+            }
+        }
+
+        // Setting Default Source Node
+        this.sourceNode = new Point(0, 0);
+        this.setNodeType(this.sourceNode, NodeType.SOURCE);
+
+        // Setting Default Destination Node
+        this.destinationNode = new Point(this.GRAPH_WIDTH - 1, this.GRAPH_HEIGHT - 1);
+        this.setNodeType(this.destinationNode, NodeType.DESTINATION);
     }
 
     @Override
@@ -48,19 +63,18 @@ public class MainCanvas extends JPanel implements MainCanvasInterface {
 
         for (int i = 0; i < this.GRAPH_WIDTH; i++) {
             for (int j = 0; j < this.GRAPH_HEIGHT; j++) {
-                this.graph[i][j] = NodeType.NOT_VISITED;
                 grid.drawRectangularGrid(i, j);
+                if (this.graph[i][j] == NodeType.MARKED) {
+                    grid.fillRectangularGrid(i, j, NodeColor.MARKED_COLOR);
+                } else if (this.graph[i][j] == NodeType.VISITED) {
+                    grid.fillRectangularGrid(i, j, NodeColor.VISITED_COLOR);
+                } else if (this.graph[i][j] == NodeType.IN_QUEUE) {
+                    grid.fillRectangularGrid(i, j, NodeColor.IN_QUEUE_COLOR);
+                }
             }
         }
 
-        //Setting Default Source Node
-        this.sourceNode = new Point(0, 0);
-        this.setNodeType(this.sourceNode, NodeType.SOURCE);
         grid.fillRectangularGrid(0, 0, NodeColor.SOURCE_COLOR);
-
-        // Setting Default Destination Node
-        this.destinationNode = new Point(this.GRAPH_WIDTH - 1, this.GRAPH_HEIGHT - 1);
-        this.setNodeType(this.destinationNode, NodeType.DESTINATION);
         grid.fillRectangularGrid(this.GRAPH_WIDTH - 1, this.GRAPH_HEIGHT - 1, NodeColor.DESTINATION_COLOR);
 
         this.addMouseListener(new GridMouseListener(this));

@@ -5,5 +5,6 @@ public enum NodeType {
     VISITED,
     SOURCE,
     DESTINATION,
-    MARKED
+    MARKED,
+    IN_QUEUE
 }

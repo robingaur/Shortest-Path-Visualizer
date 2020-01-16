@@ -12,5 +12,5 @@ public class NodeColor {
     public static final Color SOURCE_COLOR = Color.RED;
     public static final Color DESTINATION_COLOR = Color.BLUE;
     public static final Color MARKED_COLOR = Color.DARK_GRAY;
-    public static final Color QUEUE_COLOR = Color.YELLOW;
+    public static final Color IN_QUEUE_COLOR = Color.YELLOW;
 }
