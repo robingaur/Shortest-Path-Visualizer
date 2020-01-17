@@ -110,7 +110,11 @@ class MenuItemListener implements ActionListener, ChangeListener, KeyListener {
         this.initializeRectangularGrid();
         this.algorithms = new DijkstraAlgorithm(this.canvas.getGraph(), this.grid,
                 this.canvas.getSourceNode(), this.canvas.getDestinationNode());
-        this.animationDelay = this.algorithms.getAnimationDelay();
+        if (this.animationDelay == 0) {
+            this.animationDelay = this.algorithms.getAnimationDelay();
+        } else {
+            this.algorithms.setAnimationDelay(this.animationDelay);
+        }
         Thread thread = new Thread(this.algorithms, ConstKeys.SORTING_THREAD);
         thread.start();
     }
