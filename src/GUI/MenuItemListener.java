@@ -6,6 +6,7 @@ import UtilityClasses.NodeType;
 import UtilityClasses.RectangularGrid;
 import algorithms.AlgorithmsInterface;
 import algorithms.DijkstraAlgorithm;
+import algorithms.DijkstraAlgorithmWithDiagonalPath;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -110,6 +111,8 @@ class MenuItemListener implements ActionListener, ChangeListener, KeyListener {
         this.initializeRectangularGrid();
         this.algorithms = new DijkstraAlgorithm(this.canvas.getGraph(), this.grid,
                 this.canvas.getSourceNode(), this.canvas.getDestinationNode());
+//        this.algorithms = new DijkstraAlgorithmWithDiagonalPath(this.canvas.getGraph(), this.grid,
+//                this.canvas.getSourceNode(), this.canvas.getDestinationNode());
         if (this.animationDelay == 0) {
             this.animationDelay = this.algorithms.getAnimationDelay();
         } else {
