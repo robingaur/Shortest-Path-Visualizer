@@ -13,6 +13,7 @@ public class ConstKeys {
 
     public static final String CHANGE_SOURCE_MENU_ITEM = "CHANGE_SOURCE_MENU_ITEM";
     public static final String CHANGE_DESTINATION_MENU_ITEM = "CHANGE_DESTINATION_MENU_ITEM";
+    public static final String IS_DIAGONAL_PATH_ALLOWED_MENU_ITEM = "IS_DIAGONAL_PATH_ALLOWED_MENU_ITEM";
 
     public static final String SORTING_THREAD = "SORTING_THREAD";
 }

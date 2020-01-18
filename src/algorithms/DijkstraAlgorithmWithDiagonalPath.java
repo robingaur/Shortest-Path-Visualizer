@@ -34,47 +34,6 @@ public class DijkstraAlgorithmWithDiagonalPath extends AbstractAlgorithms {
                 super.fillVisitedNode(x, y);
             }
 
-            if (x > 0) {
-                if (y > 0) {
-                    // Left Top
-                    if (super.graph[x - 1][y - 1] == NodeType.NOT_VISITED) {
-                        predecessors[x - 1][y - 1] = currentPoint;
-                        queue.add(new Point(x - 1, y - 1));
-                        super.graph[x - 1][y - 1] = NodeType.IN_QUEUE;
-                        super.fillQueueNode(x - 1, y - 1);
-                    } else if (super.graph[x - 1][y - 1] == NodeType.DESTINATION) {
-                        predecessors[x - 1][y - 1] = currentPoint;
-                        break;
-                    }
-                }
-
-                {
-                    // Left Middle
-                    if (super.graph[x - 1][y] == NodeType.NOT_VISITED) {
-                        predecessors[x - 1][y] = currentPoint;
-                        queue.add(new Point(x - 1, y));
-                        super.graph[x - 1][y] = NodeType.IN_QUEUE;
-                        super.fillQueueNode(x - 1, y);
-                    } else if (super.graph[x - 1][y] == NodeType.DESTINATION) {
-                        predecessors[x - 1][y] = currentPoint;
-                        break;
-                    }
-                }
-
-                if (y < super.graphHeight - 1) {
-                    // Left Bottom
-                    if (super.graph[x - 1][y + 1] == NodeType.NOT_VISITED) {
-                        predecessors[x - 1][y + 1] = currentPoint;
-                        queue.add(new Point(x - 1, y + 1));
-                        super.graph[x - 1][y + 1] = NodeType.IN_QUEUE;
-                        super.fillQueueNode(x - 1, y + 1);
-                    } else if (super.graph[x - 1][y + 1] == NodeType.DESTINATION) {
-                        predecessors[x - 1][y + 1] = currentPoint;
-                        break;
-                    }
-                }
-            }
-
             {
                 {
                     // Middle Top
@@ -107,20 +66,48 @@ public class DijkstraAlgorithmWithDiagonalPath extends AbstractAlgorithms {
                 }
             }
 
-            if (x < super.graphWidth - 1) {
-                if (y > 0) {
-                    // Right Top
-                    if (super.graph[x + 1][y - 1] == NodeType.NOT_VISITED) {
-                        predecessors[x + 1][y - 1] = currentPoint;
-                        queue.add(new Point(x + 1, y - 1));
-                        super.graph[x + 1][y - 1] = NodeType.IN_QUEUE;
-                        super.fillQueueNode(x + 1, y - 1);
-                    } else if (super.graph[x + 1][y - 1] == NodeType.DESTINATION) {
-                        predecessors[x + 1][y - 1] = currentPoint;
+            if (x > 0) {
+                {
+                    // Left Middle
+                    if (super.graph[x - 1][y] == NodeType.NOT_VISITED) {
+                        predecessors[x - 1][y] = currentPoint;
+                        queue.add(new Point(x - 1, y));
+                        super.graph[x - 1][y] = NodeType.IN_QUEUE;
+                        super.fillQueueNode(x - 1, y);
+                    } else if (super.graph[x - 1][y] == NodeType.DESTINATION) {
+                        predecessors[x - 1][y] = currentPoint;
                         break;
                     }
                 }
 
+                if (y > 0) {
+                    // Left Top
+                    if (super.graph[x - 1][y - 1] == NodeType.NOT_VISITED) {
+                        predecessors[x - 1][y - 1] = currentPoint;
+                        queue.add(new Point(x - 1, y - 1));
+                        super.graph[x - 1][y - 1] = NodeType.IN_QUEUE;
+                        super.fillQueueNode(x - 1, y - 1);
+                    } else if (super.graph[x - 1][y - 1] == NodeType.DESTINATION) {
+                        predecessors[x - 1][y - 1] = currentPoint;
+                        break;
+                    }
+                }
+
+                if (y < super.graphHeight - 1) {
+                    // Left Bottom
+                    if (super.graph[x - 1][y + 1] == NodeType.NOT_VISITED) {
+                        predecessors[x - 1][y + 1] = currentPoint;
+                        queue.add(new Point(x - 1, y + 1));
+                        super.graph[x - 1][y + 1] = NodeType.IN_QUEUE;
+                        super.fillQueueNode(x - 1, y + 1);
+                    } else if (super.graph[x - 1][y + 1] == NodeType.DESTINATION) {
+                        predecessors[x - 1][y + 1] = currentPoint;
+                        break;
+                    }
+                }
+            }
+
+            if (x < super.graphWidth - 1) {
                 {
                     // Right Middle
                     if (super.graph[x + 1][y] == NodeType.NOT_VISITED) {
@@ -130,6 +117,19 @@ public class DijkstraAlgorithmWithDiagonalPath extends AbstractAlgorithms {
                         super.fillQueueNode(x + 1, y);
                     } else if (super.graph[x + 1][y] == NodeType.DESTINATION) {
                         predecessors[x + 1][y] = currentPoint;
+                        break;
+                    }
+                }
+
+                if (y > 0) {
+                    // Right Top
+                    if (super.graph[x + 1][y - 1] == NodeType.NOT_VISITED) {
+                        predecessors[x + 1][y - 1] = currentPoint;
+                        queue.add(new Point(x + 1, y - 1));
+                        super.graph[x + 1][y - 1] = NodeType.IN_QUEUE;
+                        super.fillQueueNode(x + 1, y - 1);
+                    } else if (super.graph[x + 1][y - 1] == NodeType.DESTINATION) {
+                        predecessors[x + 1][y - 1] = currentPoint;
                         break;
                     }
                 }

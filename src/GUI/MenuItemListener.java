@@ -22,6 +22,7 @@ class MenuItemListener implements ActionListener, ChangeListener, KeyListener {
     private RectangularGrid grid;
     private AlgorithmsInterface algorithms;
     private int animationDelay;
+    private boolean isDiagonalPathAllowed = false;
 
     public MenuItemListener(MainCanvasInterface mainCanvas) {
         this.canvas = mainCanvas;
@@ -53,6 +54,9 @@ class MenuItemListener implements ActionListener, ChangeListener, KeyListener {
                 break;
             case ConstKeys.CHANGE_DESTINATION_MENU_ITEM:
                 this.changeDestinationMenuItem();
+                break;
+            case ConstKeys.IS_DIAGONAL_PATH_ALLOWED_MENU_ITEM:
+                this.isDiagonalPathAllowedMenuItem((AbstractButton) e.getSource());
                 break;
         }
     }
@@ -109,10 +113,15 @@ class MenuItemListener implements ActionListener, ChangeListener, KeyListener {
         }
 
         this.initializeRectangularGrid();
-        this.algorithms = new DijkstraAlgorithm(this.canvas.getGraph(), this.grid,
-                this.canvas.getSourceNode(), this.canvas.getDestinationNode());
-//        this.algorithms = new DijkstraAlgorithmWithDiagonalPath(this.canvas.getGraph(), this.grid,
-//                this.canvas.getSourceNode(), this.canvas.getDestinationNode());
+
+        if (this.isDiagonalPathAllowed) {
+            this.algorithms = new DijkstraAlgorithmWithDiagonalPath(this.canvas.getGraph(), this.grid,
+                    this.canvas.getSourceNode(), this.canvas.getDestinationNode());
+        } else {
+            this.algorithms = new DijkstraAlgorithm(this.canvas.getGraph(), this.grid,
+                    this.canvas.getSourceNode(), this.canvas.getDestinationNode());
+        }
+
         if (this.animationDelay == 0) {
             this.animationDelay = this.algorithms.getAnimationDelay();
         } else {
@@ -206,5 +215,9 @@ class MenuItemListener implements ActionListener, ChangeListener, KeyListener {
         }
 
         this.canvas.setCurrentNodeStage(NodeType.DESTINATION);
+    }
+
+    private void isDiagonalPathAllowedMenuItem(AbstractButton button) {
+        this.isDiagonalPathAllowed = button.getModel().isSelected();
     }
 }

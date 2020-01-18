@@ -88,6 +88,11 @@ class EventQueueThread implements Runnable {
             changeDestination.addActionListener(this.menuItemListener);
             editMenu.add(changeDestination);
 
+            JCheckBoxMenuItem isDiagonalPathAllowed = new JCheckBoxMenuItem("is Diagonal Path Allowed");
+            isDiagonalPathAllowed.setActionCommand(ConstKeys.IS_DIAGONAL_PATH_ALLOWED_MENU_ITEM);
+            isDiagonalPathAllowed.addActionListener(this.menuItemListener);
+            editMenu.add(isDiagonalPathAllowed);
+
             menuBar.add(editMenu);
         }
 
