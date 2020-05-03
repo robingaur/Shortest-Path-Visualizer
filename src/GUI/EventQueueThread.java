@@ -24,7 +24,7 @@ class EventQueueThread implements Runnable {
             this.frame = new JFrame("Shortest Path Visualizer");
             this.frame.setVisible(true);
             this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            this.frame.setResizable(false);
+            this.frame.setResizable(true);
             this.frame.setBackground(Color.WHITE);
             this.frame.add(this.mainCanvas);
             this.frame.setJMenuBar(this.setMenuBar());
