@@ -43,6 +43,9 @@ class MenuItemListener implements ActionListener, ChangeListener, KeyListener {
             case ConstKeys.START_PAUSE_MENU_ITEM:
                 this.startPauseMenuItem();
                 break;
+            case ConstKeys.FINISH_EXECUTION_MENU_ITEM:
+                this.finishExecutionMenuItem();
+                break;
             case ConstKeys.RESET_GRAPH_MENU_ITEM:
                 this.resetGraphMenuItem();
                 break;
